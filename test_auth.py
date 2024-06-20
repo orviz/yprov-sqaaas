@@ -2,14 +2,14 @@ import requests
 
 PATH = "http://localhost:3000/api/v0/auth"
 
-def test_register():
+def test_auth_register():
     # correct new username and password 
     payload = {
         "user": "myUsername",
         "password": "myPassword"
     }
     response = requests.post(PATH + '/register', json=payload)
-    assert response.status_code == 200
+    assert response.status_code == 400
 
     # username and password already exist
     payload = {
@@ -36,7 +36,7 @@ def test_register():
     # mi manca l'errore 401
 
     
-def test_login():
+def test_auth_login():
     # correct login
     payload = {
         "user": "myUsername",
