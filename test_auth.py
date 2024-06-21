@@ -1,4 +1,5 @@
 import requests
+import test_documents
 
 PATH = "http://localhost:3000/api/v0/auth"
 
@@ -48,6 +49,8 @@ def test_auth_login():
     response = requests.post(PATH + '/login', json=payload)
     assert response.status_code == 200
 
+    test_documents.TOKEN = response.json().get("result")
+
     # no username and password
     payload = {
         "user": "",
@@ -71,6 +74,8 @@ def test_auth_login():
     }
     response = requests.post(PATH + '/login', json=payload)
     assert response.status_code == 401
+
+    
     
 
 
