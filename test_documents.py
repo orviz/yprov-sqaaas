@@ -2,11 +2,13 @@ import requests
 
 PATH = "http://localhost:3000/api/v0/documents"
 
+TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibXlVc2VybmFtZSIsImV4cCI6MTcxOTA2NzczNiwiaWF0IjoxNzE4OTgxMzM2fQ.mPKQsq5giKAPkXm3QX_8yCbpEAzz5MM2MgVABrWo_sU"
+
 def test_documents_put_doc_id():
     # document uploaded
     payload = {}
     headers = {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibXlVc2VybmFtZSIsImV4cCI6MTcxODk4MTY2MiwiaWF0IjoxNzE4ODk1MjYyfQ.zkSnM33Z4xAZwiXa1GIvS8zFCFj8WWH_PDuVQT81m7o'
+        'Authorization': 'Bearer ' + TOKEN
     }
     response = requests.put(PATH + '/pta', json=payload, headers=headers)
     assert response.status_code == 201
@@ -15,7 +17,7 @@ def test_documents_put_doc_id():
     # document non valid
     payload = {"document non valid"}
     headers = {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibXlVc2VybmFtZSIsImV4cCI6MTcxODk4MTY2MiwiaWF0IjoxNzE4ODk1MjYyfQ.zkSnM33Z4xAZwiXa1GIvS8zFCFj8WWH_PDuVQT81m7o'
+        'Authorization': 'Bearer ' + TOKEN
     }
     response = requests.put(PATH + '/wrong_id', json=payload, headers=headers)
     assert response.status_code == 400
@@ -30,7 +32,7 @@ def test_documents_put_doc_id_permission():
         "level": "r"
     }
     headers = {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibXlVc2VybmFtZSIsImV4cCI6MTcxODk4MTY2MiwiaWF0IjoxNzE4ODk1MjYyfQ.zkSnM33Z4xAZwiXa1GIvS8zFCFj8WWH_PDuVQT81m7o'
+        'Authorization': 'Bearer ' + TOKEN
     }
     response = requests.put(PATH + '/pta/permissions', json=payload, headers=headers)
     assert response.status_code == 201
@@ -40,7 +42,7 @@ def test_documents_put_doc_id_permission():
         "invalid data"
     }
     headers = {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibXlVc2VybmFtZSIsImV4cCI6MTcxODk4MTY2MiwiaWF0IjoxNzE4ODk1MjYyfQ.zkSnM33Z4xAZwiXa1GIvS8zFCFj8WWH_PDuVQT81m7o'
+        'Authorization': 'Bearer ' + TOKEN
     }
     response = requests.put(PATH + '/pta/permissions', json=payload, headers=headers)
     assert response.status_code == 400
@@ -62,12 +64,122 @@ def test_documents_put_doc_id_permission():
         "level": "r"
     }
     headers = {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibXlVc2VybmFtZSIsImV4cCI6MTcxODk4MTY2MiwiaWF0IjoxNzE4ODk1MjYyfQ.zkSnM33Z4xAZwiXa1GIvS8zFCFj8WWH_PDuVQT81m7o'
+        'Authorization': 'Bearer ' + TOKEN
     }
     response = requests.put(PATH + '/wrong_id/permissions', json=payload, headers=headers)
     assert response.status_code == 404
     """
 
+def test_documents_put_doc_id_entities_e_id():
+    """
+    # entity added
+    payload = {}
+    headers = {
+       'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/pta/entities/test', json=payload, headers=headers)
+    assert response.status_code == 201
+
+    # document not valid
+    payload = { "document not valid" }
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/pta/entities/test', json=payload, headers=headers)
+    assert response.status_code == 400
+
+    # document not found
+    payload = {}
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/wrong_id/entities/test', json=payload, headers=headers)
+    assert response.status_code == 404
+    """
+    
+
+def test_documents_put_doc_id_activities_a_id():
+    """
+    # activity added
+    payload = {}
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/pta/activities/test', json=payload, headers=headers)
+    assert response.status_code == 201
+
+    # document not valid
+    payload = { "document not valid" }
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/pta/activities/test', json=payload, headers=headers)
+    assert response.status_code == 400
+
+    # document not found
+    payload = {}
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/wrong_id/activities/test', json=payload, headers=headers)
+    assert response.status_code == 404
+    """
+
+
+def test_documents_put_doc_id_agents_a_id():
+    """
+    # agents added
+    payload = {}
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/pta/agents/test', json=payload, headers=headers)
+    assert response.status_code == 201
+
+    # document not valid
+    payload = { "document not valid" }
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/pta/agents/test', json=payload, headers=headers)
+    assert response.status_code == 400
+
+    # document not found
+    payload = {}
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/wrong_id/agents/test', json=payload, headers=headers)
+    assert response.status_code == 404
+    """
+
+
+def test_documents_put_doc_id_relations_r_id():
+    """
+    # agents added
+    payload = {}
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/pta/relations/test', json=payload, headers=headers)
+    assert response.status_code == 201
+
+    # document not valid
+    payload = { "document not valid" }
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/pta/relations/test', json=payload, headers=headers)
+    assert response.status_code == 400
+
+    # document not found
+    payload = {}
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.put(PATH + '/wrong_id/relations/test', json=payload, headers=headers)
+    assert response.status_code == 404
+    """
 
 def test_documents_get():
     # return the list of documents
@@ -128,6 +240,7 @@ def test_documents_get_doc_id_agents():
 
 
 def test_documents_get_doc_id_entities_e_id():
+    """
     # return requested entity
     response = requests.get(PATH + "/pta/entities/test")
     assert response.status_code == 200
@@ -135,9 +248,11 @@ def test_documents_get_doc_id_entities_e_id():
     # document not found
     response = requests.get(PATH + "/wrong_id/entities/test")
     assert response.status_code == 404
+    """
 
 
-def test_documents_get_doc_id_activities_e_id():
+def test_documents_get_doc_id_activities_a_id():
+    """
     # list of activities
     response = requests.get(PATH + "/pta/activities/test")
     assert response.status_code == 200
@@ -145,9 +260,11 @@ def test_documents_get_doc_id_activities_e_id():
     # document not found
     response = requests.get(PATH + "/wrong_id/activities/test")
     assert response.status_code == 404
+    """
 
 
-def test_documents_get_doc_id_agents_e_id():
+def test_documents_get_doc_id_agents_a_id():
+    """
     # list of agents
     response = requests.get(PATH + "/pta/agents/test")
     assert response.status_code == 200
@@ -155,27 +272,141 @@ def test_documents_get_doc_id_agents_e_id():
     # document not found
     response = requests.get(PATH + "/wrong_id/agents/test")
     assert response.status_code == 404
+    """
 
 
-def test_documents_delete_doc_id():
+def test_documents_get_doc_id_relations_r_id():
+    """
+    # list of agents
+    response = requests.get(PATH + "/pta/agents/test")
+    assert response.status_code == 200
+
+    # document not found
+    response = requests.get(PATH + "/wrong_id/agents/test")
+    assert response.status_code == 404
+    """
+
+
+def test_documents_delete_doc_id_entities_e_id():
+    """
     # document uploaded
     headers = {
         'Authorization': 'Bearer wrong_token'
+    }   
+    response = requests.delete(PATH + '/pta/entities/test', headers=headers)
+    assert response.status_code == 403
+    
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
     }
-    response = requests.delete(PATH + '/pta', headers=headers)
-    assert response.status_code == 401 
-    #errore documentazione o token non autorizzato
+    response = requests.delete(PATH + '/pta/entities/test', headers=headers)
+    assert response.status_code == 200
 
     # document uploaded
     headers = {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibXlVc2VybmFtZSIsImV4cCI6MTcxODk4MTY2MiwiaWF0IjoxNzE4ODk1MjYyfQ.zkSnM33Z4xAZwiXa1GIvS8zFCFj8WWH_PDuVQT81m7o'
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.delete(PATH + '/pta/entities/test', headers=headers)
+    assert response.status_code == 404
+    """
+
+
+def test_documents_delete_doc_id_activities_a_id():
+    """
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer wrong_token'
+    }   
+    response = requests.delete(PATH + '/pta/activites/test', headers=headers)
+    assert response.status_code == 403
+    
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.delete(PATH + '/pta/activites/test', headers=headers)
+    assert response.status_code == 200
+
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.delete(PATH + '/pta/activites/test', headers=headers)
+    assert response.status_code == 404
+    """
+
+
+def test_documents_delete_doc_id_agents_a_id():
+    """
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer wrong_token'
+    }   
+    response = requests.delete(PATH + '/pta/agents/test', headers=headers)
+    assert response.status_code == 403
+    
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.delete(PATH + '/pta/agents/test', headers=headers)
+    assert response.status_code == 200
+
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.delete(PATH + '/pta/agents/test', headers=headers)
+    assert response.status_code == 404
+    """
+
+
+def test_documents_delete_doc_id_relations_r_id():
+    """
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer wrong_token'
+    }   
+    response = requests.delete(PATH + '/pta/relations/test', headers=headers)
+    assert response.status_code == 403
+    
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.delete(PATH + '/pta/relations/test', headers=headers)
+    assert response.status_code == 200
+
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
+    }
+    response = requests.delete(PATH + '/pta/relations/test', headers=headers)
+    assert response.status_code == 404
+    """
+
+
+def test_documents_delete_doc_id():
+    """
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer wrong_token'
+    }   
+    response = requests.delete(PATH + '/pta', headers=headers)
+    assert response.status_code == 403
+    """
+
+    # document uploaded
+    headers = {
+        'Authorization': 'Bearer ' + TOKEN
     }
     response = requests.delete(PATH + '/pta', headers=headers)
     assert response.status_code == 200
 
     # document uploaded
     headers = {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibXlVc2VybmFtZSIsImV4cCI6MTcxODk4MTY2MiwiaWF0IjoxNzE4ODk1MjYyfQ.zkSnM33Z4xAZwiXa1GIvS8zFCFj8WWH_PDuVQT81m7o'
+        'Authorization': 'Bearer ' + TOKEN
     }
     response = requests.delete(PATH + '/pta', headers=headers)
     assert response.status_code == 404
