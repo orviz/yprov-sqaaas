@@ -5,23 +5,27 @@ on:
     branches: [main]
 
 jobs:
-  runs-on: ubuntu-latest
-  name: esecuzione test
-  steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          submodules: true          
-          fetch-depth: 0            
+  build: # Identificatore del job
+    runs-on: ubuntu-latest
+    name: esecuzione test
+    steps:
+        - name: Checkout repository
+          uses: actions/checkout@v2
+          with:
+            submodules: true          
+            fetch-depth: 0            
 
-      - name: Test nella cartella yProv
-        working-directory: yProv  
-        uses: eosc-synergy/sqaaas-assessment-action@v2
+        - name: quality test
+          uses: eosc-synergy/sqaaas-assessment-action@v2
+          with:
+            repo: 'https://github.com/HPCI-Lab/yProv.git'
+            branch: 'main'
 
-      - name: UniTest
-        working-directory: yProv  
-        run: |
-          echo "Esecuzione test pytest"
-          python3 -m pytest -v
+        - name: Esegui pytest nel submodulo
+          run: |
+            echo "Esecuzione pytest!"
+            python3 -m pytest -v
+        
+        
   
   
