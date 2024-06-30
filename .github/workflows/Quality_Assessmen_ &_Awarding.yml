@@ -53,9 +53,8 @@ jobs:
 
         - name: UniTests
           env:
-            API_URL: ${{ steps.ngrok.outputs.url }}  # Passa l'URL pubblico di ngrok come variabile d'ambiente
-          run: |
-            python3 -m pytest -v
+            NGROK_URL: ${{ steps.ngrok.outputs.url }}  # Passa l'URL pubblico di ngrok come variabile d'ambiente
+          run: python3 -m pytest -v
 
         - name: Print out payload
           run: cat workflow_validation_step.json

@@ -1,3 +1,4 @@
+import os
 import requests
 import test_documents
 
@@ -6,7 +7,7 @@ PATH = "http://localhost:3000/api/v0/auth"
 
 def test_auth_login():
     # Obtain the ngrok URL dynamically from GitHub Actions environment
-    ngrok_url = "https://your-ngrok-url"  # Replace with the actual ngrok URL obtained from GitHub Actions
+    ngrok_url = os.getenv('NGROK_URL')  
 
     # correct login
     payload = {
