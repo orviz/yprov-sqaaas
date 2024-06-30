@@ -1,13 +1,13 @@
-name: Esegui codice e pytest in un submodulo
+name: Software Quality Assurance as a Service
 
 on:
   push:
     branches: [main]
 
 jobs:
-  build: # Identificatore del job
+  build: 
     runs-on: ubuntu-latest
-    name: esecuzione test
+    name: Quality Assessment & Awarding
     steps:
         - name: Checkout repository
           uses: actions/checkout@v2
@@ -15,19 +15,17 @@ jobs:
             submodules: true          
             fetch-depth: 0            
 
-        - name: quality test
+        - name: Quality Tests
           uses: eosc-synergy/sqaaas-assessment-action@v2
           with:
             repo: 'https://github.com/HPCI-Lab/yProv.git'
             branch: 'main'
 
-        - name: Installa pytest
-          run: |
-            python3 -m pip install pytest
+        - name: Install pytest
+          run: python3 -m pip install pytest
 
-        - name: Esegui pytest nel submodulo
-          run: |
-            python3 -m pytest -v
+        - name: UniTests
+          run: python3 -m pytest -v
         
         
   
