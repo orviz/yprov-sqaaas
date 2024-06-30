@@ -14,7 +14,7 @@ def test_auth_login():
         "user": "myUsername",
         "password": "myPassword"
     }
-    response = requests.post(ngrok_url + PATH + "/api/v0/auth/login", json=payload)
+    response = requests.post(ngrok_url + "/api/v0/auth/login", json=payload)
     assert response.status_code == 200
 
     test_documents.TOKEN = response.json().get("result")
@@ -24,7 +24,7 @@ def test_auth_login():
         "user": "",
         "password": ""
     }
-    response = requests.post(ngrok_url + PATH + "/api/v0/auth/login", json=payload)
+    response = requests.post(ngrok_url + "/api/v0/auth/login", json=payload)
     assert response.status_code == 400
 
     # correct username, wrong password
@@ -32,7 +32,7 @@ def test_auth_login():
         "user": "myUsername",
         "password": "wrongPassword"
     }
-    response = requests.post(ngrok_url + PATH + "/api/v0/auth/login", json=payload)
+    response = requests.post(ngrok_url + "/api/v0/auth/login", json=payload)
     assert response.status_code == 401
 
     # wrong username, correct password
@@ -40,7 +40,7 @@ def test_auth_login():
         "user": "wrongUser",
         "password": "myPassword"
     }
-    response = requests.post(ngrok_url + PATH + "/api/v0/auth/login", json=payload)
+    response = requests.post(ngrok_url + "/api/v0/auth/login", json=payload)
     assert response.status_code == 401
 
 """   
