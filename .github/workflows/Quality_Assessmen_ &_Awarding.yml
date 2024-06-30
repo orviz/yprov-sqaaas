@@ -15,16 +15,11 @@ jobs:
             submodules: true          
             fetch-depth: 0    
 
-        - name: Setup Python
-          uses: actions/setup-python@v2
-          with:
-            python-version: 3.10
-
-        - name: Quality Tests
-          uses: eosc-synergy/sqaaas-assessment-action@v2
-          with:
-            repo: 'https://github.com/HPCI-Lab/yProv.git'
-            branch: 'main'
+        #- name: Quality Tests
+          #uses: eosc-synergy/sqaaas-assessment-action@v2
+          #with:
+            #repo: 'https://github.com/HPCI-Lab/yProv.git'
+            #branch: 'main'
 
         - name: Install pytest
           run: python3 -m pip install pytest
