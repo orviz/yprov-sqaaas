@@ -1,0 +1,36 @@
+name: Quality_Assessment_ &_Awarding_v2
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Quality Tests
+        uses: eosc-synergy/sqaaas-assessment-action@v2
+        with:
+          repo: 'https://github.com/HPCI-Lab/yProv.git'
+          branch: 'main'   
+
+      - name: Validation of QC.Uni
+        uses: eosc-synergy/sqaaas-step-action@v1
+        with:
+          name: uniTest_with_pytest
+          tool: commands
+          commands: 
+          container:    
+
+      - name: QC.Uni execution
+        uses: eosc-synergy/sqaaas-assessment-action@v2
+        with:
+          qc_uni_steps: uniTest_with_pytest 
