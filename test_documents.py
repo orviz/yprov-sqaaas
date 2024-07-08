@@ -1,9 +1,10 @@
 import requests
 
+#PATH = "http://web:3000/api/v0/documents"
 PATH = "http://localhost:3000/api/v0/documents"
 
+
 TOKEN = None
-#TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoibXlVc2VybmFtZSIsImV4cCI6MTcxOTA2NzczNiwiaWF0IjoxNzE4OTgxMzM2fQ.mPKQsq5giKAPkXm3QX_8yCbpEAzz5MM2MgVABrWo_sU"
 
 def test_documents_put_doc_id():
     # document uploaded
