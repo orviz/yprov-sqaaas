@@ -1,8 +1,8 @@
 import requests
 import test_documents
 
-#PATH = "http://localhost:3000/api/v0/auth"
 PATH = "http://web:3000/api/v0/auth"
+
 
 def test_auth_register():
     
@@ -38,7 +38,6 @@ def test_auth_register():
     assert response.status_code == 400
 
     # mi manca l'errore 401
-
 
 def test_auth_login():
     # correct login
@@ -76,6 +75,7 @@ def test_auth_login():
     assert response.status_code == 401
 
     
+
 
 
 
