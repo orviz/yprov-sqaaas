@@ -1,7 +1,8 @@
 import requests
 
-PATH = "http://web:3000/api/v0/documents"
-#PATH = "http://localhost:3000/api/v0/documents"
+PATH = "http://localhost:3000/api/v0/documents"
+
+#PATH = "http://web:3000/api/v0/documents"
 
 
 TOKEN = None
