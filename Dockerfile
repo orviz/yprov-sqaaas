@@ -18,7 +18,7 @@ RUN git clone https://github.com/HPCI-Lab/sqaaas.git .
 COPY requirements.txt /app/requirements.txt
 RUN pip install -r requirements.txt
 
-# Make the script.sh script executable and run it
-COPY script.sh /app/script.sh
-RUN chmod +x /app/script.sh
-ENTRYPOINT ["/app/script.sh"]
+# Make the script_dockerfile.sh script executable and run it
+COPY script_dockerfile.sh /app/script_dockerfile.sh
+RUN chmod +x /app/script_dockerfile.sh
+ENTRYPOINT ["/app/script_dockerfile.sh"]
