@@ -18,7 +18,6 @@ jobs:
         with:
           name: unittests_pytest
           tool: commands
-          commands: docker run --name unittests --privileged -v /var/run/docker.sock:/var/run/docker.sock sqaaas_yprov:v1.0
           container: sqaaas_yprov:v1.0
       - name: SQAaaS assessment with unit testing (QC.Uni) step
         uses: eosc-synergy/sqaaas-assessment-action@v2
